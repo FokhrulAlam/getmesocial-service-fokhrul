@@ -1,20 +1,20 @@
-1. git init
-2. git status
-3. git add file.txt
-4. git commit -m "this is my first commit"
-5. git log
-6. git push -u origin master
-7. git revert c7394c165ed679968cde31a90a2018f100f9f2c8
-8. git log --pretty=oneline
+1. git init	//Initialize a local git repository
+2. git status	//see the current status of the local repository
+3. git add file.txt	// adding a file to the local repository
+4. git commit -m "this is my first commit"	// committing the the change
+5. git log	//seeing the recent activities
+6. git push -u origin master	//pushing the commit to the master branch of the remote repository
+7. git revert c7394c165ed679968cde31a90a2018f100f9f2c8		// reverting a change that was previously made
+8. git log --pretty=oneline	// seeing the recent activities 
 9. git push -u origin master
 			//// Branching
 
 
 ###################create SSH-keys
-1. ssh-keygen -t rsa -C fokhrulalammrinal@yahoo.com
+1. ssh-keygen -t rsa -C .........@yahoo.com	// creating a SSH-KEY
 	>> Go to the directory where the key is generated. copy it and 
 	>> add it to github. 
-2. ssh -T git@github.com
+2. ssh -T git@github.com	// adding the SSH-key to github
 
 			### Branching
 Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github (master)
@@ -60,15 +60,15 @@ Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
 $ git log --pretty=oneline
 ba73c1dbd9e95a80ea6a40cc1610d3201ab68243 (HEAD -> master) First commit to Org_Details
 
-Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)	// creating a new branch
 $ git branch First_Branch
 
-Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)	// seeing local branches
 $ git branch -v
   First_Branch ba73c1d First commit to Org_Details
 * master       ba73c1d First commit to Org_Details
 
-Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)	// entering newly created branch
 $ git checkout First_Branch
 Switched to branch 'First_Branch'
 
@@ -98,16 +98,16 @@ employees.txt  name.txt
 
 // I created a new repository in the server with the same name.
 
-Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)	// adding a remote repository
 $ git remote add origin git@github.com:FokhrulAlam/Org_Details.git
 
-Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)	// pushing local  master branch change to origin master branch
 $ git push -u origin master
 
-Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)	// pushing a secondary branch to remote repository
 $ git push -u origin First_Branch
 
-Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)	// merging the secondary repository with the master branch
 $ git merge First_Branch
 Updating ba73c1d..a72413c
 Fast-forward
@@ -126,7 +126,7 @@ Total 0 (delta 0), reused 0 (delta 0)
 To github.com:FokhrulAlam/Org_Details.git
    ba73c1d..a72413c  master -> master
 
-Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)	// deleting the secondary branch from the local repository
 $ git branch -D First_Branch
 Deleted branch First_Branch (was a72413c).
 
@@ -134,7 +134,7 @@ Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
 $ git branch -v
 * master a72413c First commit to First_Branch
 
-Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)	// deleting the secondary branch of the remote repository
 $ git push origin --delete First_Branch
 Enter passphrase for key '/c/Users/Me/.ssh/id_rsa':
 To github.com:FokhrulAlam/Org_Details.git
