@@ -1,0 +1,142 @@
+1. git init
+2. git status
+3. git add file.txt
+4. git commit -m "this is my first commit"
+5. git log
+6. git push -u origin master
+7. git revert c7394c165ed679968cde31a90a2018f100f9f2c8
+8. git log --pretty=oneline
+9. git push -u origin master
+			//// Branching
+
+
+###################create SSH-keys
+1. ssh-keygen -t rsa -C fokhrulalammrinal@yahoo.com
+	>> Go to the directory where the key is generated. copy it and 
+	>> add it to github. 
+2. ssh -T git@github.com
+
+			### Branching
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github (master)
+$ mkdir Org_Details
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github (master)
+$ cd Org_Details/
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+$ git init
+Initialized empty Git repository in C:/Users/Me/Documents/github/Org_Details/.git/
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+$ notepad name.txt
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+$ notepad employees.txt
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        employees.txt
+        name.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+$ git add .
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+$ git commit -m "First commit to Org_Details"
+[master (root-commit) ba73c1d] First commit to Org_Details
+ 2 files changed, 2 insertions(+)
+ create mode 100644 employees.txt
+ create mode 100644 name.txt
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+$ git log --pretty=oneline
+ba73c1dbd9e95a80ea6a40cc1610d3201ab68243 (HEAD -> master) First commit to Org_Details
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+$ git branch First_Branch
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+$ git branch -v
+  First_Branch ba73c1d First commit to Org_Details
+* master       ba73c1d First commit to Org_Details
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+$ git checkout First_Branch
+Switched to branch 'First_Branch'
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (First_Branch)
+$ ls
+employees.txt  name.txt
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (First_Branch)
+$ notepad address.txt
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (First_Branch)
+$ git add "address.txt"
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (First_Branch)
+$ git commit -m "First commit to First_Branch"
+[First_Branch a72413c] First commit to First_Branch
+ 1 file changed, 1 insertion(+)
+ create mode 100644 address.txt
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (First_Branch)
+$ git checkout "master"
+Switched to branch 'master'
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+$ ls
+employees.txt  name.txt
+
+// I created a new repository in the server with the same name.
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+$ git remote add origin git@github.com:FokhrulAlam/Org_Details.git
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+$ git push -u origin master
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+$ git push -u origin First_Branch
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+$ git merge First_Branch
+Updating ba73c1d..a72413c
+Fast-forward
+ address.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 address.txt
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+$ ls
+address.txt  employees.txt  name.txt
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+$ git push origin master
+Enter passphrase for key '/c/Users/Me/.ssh/id_rsa':
+Total 0 (delta 0), reused 0 (delta 0)
+To github.com:FokhrulAlam/Org_Details.git
+   ba73c1d..a72413c  master -> master
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+$ git branch -D First_Branch
+Deleted branch First_Branch (was a72413c).
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+$ git branch -v
+* master a72413c First commit to First_Branch
+
+Me@DESKTOP-2TMEDTM MINGW64 ~/Documents/github/Org_Details (master)
+$ git push origin --delete First_Branch
+Enter passphrase for key '/c/Users/Me/.ssh/id_rsa':
+To github.com:FokhrulAlam/Org_Details.git
+ - [deleted]         First_Branch
+
