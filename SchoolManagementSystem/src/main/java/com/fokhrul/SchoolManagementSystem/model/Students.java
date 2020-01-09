@@ -13,6 +13,9 @@ public class Students {
     private double studentYearlyFees;
     private double studentFeesPaid;
 
+    public Students(){
+
+    }
     /**
      * Constructor
      * @param studentId
