@@ -97,13 +97,13 @@ public class AlbumService {
         List<Photo> photos = photoRepository.findAll();
         for (Photo photo : photos){
             if (photo.getAlbumId().equals(albumId)) {
-                String idAlbum = photo.getAlbumId();    //storing the albumId of photo object
+                String idPhoto = photo.getPhotoId();    //storing the albumId of photo object
                 photoRepository.delete(photo);      //deleting the photo of the current album
                 /**
                  * let's delete the corresponding comments now.
                  */
                 for (Comment comment : comments){
-                    if (comment.getPhotoId().equals(idAlbum)){
+                    if (comment.getPhotoId().equals(idPhoto)){
                         commentRepository.delete(comment);
                     }
                 }
