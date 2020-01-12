@@ -30,12 +30,12 @@ public class User {
     @Id
     private String id;      //id of the user
 
-    @NotNull(message = "User name should not be null.")
-    @Min(value = 8, message = "User name should contain minimum 5 letters.")
-    @Max(value = 15, message = "User name can contains maximum 15 letters.")
+//    @NotNull(message = "User name should not be null.")
+//    @Min(value = 8, message = "User name should contain minimum 5 letters.")
+//    @Max(value = 15, message = "User name can contains maximum 15 letters.")
     private String name;    //name of the user
 
-    @Email(message = "Email should be in a valid format.")
+//    @Email(message = "Email should be in a valid format.")
     private String email;   //email of the user
 
 //    @URL("")

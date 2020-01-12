@@ -34,12 +34,12 @@ public class UserResource {
     }
 
     @PostMapping
-    public void saveUser(@Valid @RequestBody User user){
+    public void saveUser(@RequestBody User user){
         userService.save(user);
     }
 
     @PutMapping(path = "/{id}")
-    public void editUser(@PathVariable("id") String id,@Valid @RequestBody User user){
+    public void editUser(@PathVariable("id") String id, @RequestBody User user){
         user.setId(id);
         userService.edit(user);
     }
