@@ -1,6 +1,7 @@
 package com.fokhrul.PhotoSharing.service;
 
 import com.fokhrul.PhotoSharing.model.Comment;
+import com.fokhrul.PhotoSharing.model.Photo;
 import com.fokhrul.PhotoSharing.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,5 +50,12 @@ public class CommentService {
         commentRepository.deleteAll();
     }
 
+    /**
+     * Delete comments by photoId
+     * @param photoId
+     */
+    public void deleteCommentByPhotoId(String photoId){
+        commentRepository.deleteByPhotoId(photoId);
+    }
 
 }

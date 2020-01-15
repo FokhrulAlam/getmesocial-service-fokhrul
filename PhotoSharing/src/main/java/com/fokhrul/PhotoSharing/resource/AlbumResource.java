@@ -17,8 +17,17 @@ public class AlbumResource {
     /**
      * Get a single album found by an id.
      */
-    public Optional<Album> getSingleAlbum(String albumId) {
+    @GetMapping(path = "getOneByAlbumId/{albumId}")
+    public Optional<Album> getSingleAlbumById(@PathVariable("albumId") String albumId) {
         return albumService.getSingleAlbum(albumId);
+    }
+
+    /**
+     * Get a single album found by album name
+     */
+    @GetMapping(path = "getOneByAlbumName/{albumName}")
+    public Optional<Album> getSingleAlbumByName(@PathVariable("albumName") String albumName){
+        return albumService.getSingleAlbumByName(albumName);
     }
 
     /**

@@ -8,11 +8,11 @@ import java.util.Optional;
 public interface PhotoRepository extends MongoRepository<Photo, String> {
     /**
      * finding photos based on albumId
-     * @param s
+     * @param albumId
      * @return
      */
-    Optional<Photo> findByAlbumId(String s);
+    Optional<Photo> findByAlbumId(String albumId);
 
-    void deleteByAlbumId(String s);
+    void deleteByAlbumId(String albumId);
 
 }

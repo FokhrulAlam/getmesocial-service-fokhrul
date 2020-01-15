@@ -13,13 +13,23 @@ public class PhotoService {
     @Autowired
     PhotoRepository photoRepository;
 
+
     /**
-     * Get a single photo found by id
+     * Get a single photo found by photo id
      * @param photoId
      * @return
      */
     public Optional<Photo> getSinglePhoto(String photoId) {
         return photoRepository.findById(photoId);
+    }
+
+    /**
+     * Get a single photo by album id
+     * @param albumId
+     * @return
+     */
+    public Optional<Photo> getSinglePhotoByAlbumId(String albumId) {
+        return photoRepository.findByAlbumId(albumId);
     }
 
     /**
@@ -47,6 +57,14 @@ public class PhotoService {
      */
     public void deleteAllPhotos() {
         photoRepository.deleteAll();
+    }
+
+    /**
+     * Delete the photo by albumId
+     * @param albumId
+     */
+    public void deleteByAlbumId(String albumId) {
+        photoRepository.deleteByAlbumId(albumId);
     }
 
 

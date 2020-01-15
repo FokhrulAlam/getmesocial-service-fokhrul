@@ -8,5 +8,6 @@ import java.util.Optional;
 
 public interface AlbumRepository extends MongoRepository<Album, String> {
 
-    Optional<Album> findByName(String s);
+    Optional<Album> findByName(String name);
+
 }
