@@ -3,6 +3,7 @@ package com.fokhrul.PhotoSharing.resource;
 import com.fokhrul.PhotoSharing.model.Album;
 import com.fokhrul.PhotoSharing.service.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,7 +41,7 @@ public class AlbumResource {
     }
 
     @PostMapping
-    public void saveAlbum(@RequestBody Album album){
+    public void saveAlbum(@Validated @RequestBody Album album){
         albumService.save(album);
     }
 
@@ -86,7 +87,9 @@ public class AlbumResource {
 
     @DeleteMapping("/dPhotosComments/{albumId}")
     public void deleteAlbumWithPhotosComments(@PathVariable("albumId") String albumId){
+
         albumService.deleteAlbumWithPhotosComments(albumId);
+
     }
 
 

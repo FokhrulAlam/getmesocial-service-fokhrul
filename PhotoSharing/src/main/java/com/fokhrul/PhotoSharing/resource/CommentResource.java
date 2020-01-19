@@ -1,7 +1,9 @@
 package com.fokhrul.PhotoSharing.resource;
 
+import com.fokhrul.PhotoSharing.exception.customeExceptionHandler.InvalidPhotoIdException;
 import com.fokhrul.PhotoSharing.model.Comment;
 import com.fokhrul.PhotoSharing.service.CommentService;
+import com.fokhrul.PhotoSharing.service.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,9 @@ import java.util.Optional;
 public class CommentResource {
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private PhotoService photoService;
 
     /**
      * Get a single comment found by id
@@ -32,9 +37,17 @@ public class CommentResource {
         return commentService.getComment();
     }
 
-    @PostMapping
+    /**
+     * Save a single comments
+     * @param comment
+     */
+    @PostMapping("/saveSingleComment")
     public void saveComment(@RequestBody Comment comment){
-        commentService.saveComment(comment);
+        if (photoService.checkExistenceByPhotoId(comment.getPhotoId())) {
+            commentService.saveComment(comment);
+        }else{
+            throw new InvalidPhotoIdException();
+        }
     }
 
     @PutMapping(path = "/{id}")

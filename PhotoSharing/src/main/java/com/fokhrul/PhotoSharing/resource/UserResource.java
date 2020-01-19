@@ -3,11 +3,12 @@ package com.fokhrul.PhotoSharing.resource;
 import com.fokhrul.PhotoSharing.model.User;
 import com.fokhrul.PhotoSharing.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -39,7 +40,7 @@ public class UserResource {
 //                                                                @PathVariable("userId2") String userId2){
 //        return userService.getTwoUsersById(userId1, userId2);
 //    }
-    @GetMapping("[]")
+    @GetMapping("{userId1}/{userId2}")
     public ResponseEntity<List<Optional<User>>> getTwoUsersById(@PathVariable Map<String, String>  userId){
         return userService.getTwoUsersById(userId);
     }
@@ -87,32 +88,39 @@ public class UserResource {
             MediaType.APPLICATION_XML_VALUE,
             MediaType.APPLICATION_JSON_VALUE
             })
-    public void saveUser(@Valid @RequestBody User user){
+    public void saveUser(@Validated @RequestBody User user){
         userService.save(user);
     }
 
     /**
      * update all the attributes of a user except the id.
-     * @param id
+     * @param userId
      * @param user
      */
-    @PutMapping(path = "/{id}",consumes = {
+    @PutMapping(path = "editUserById/{userId}",consumes = {
             MediaType.APPLICATION_XML_VALUE,
             MediaType.APPLICATION_JSON_VALUE
             })
-    public void editUser(@PathVariable("id") String id, @RequestBody User user){
-        user.setId(id);
-        userService.edit(user);
+    public ResponseEntity<String> editUser(@RequestParam("userId") String userId, @RequestBody User user){
+
+        if (userService.checkExistenceOfUserById(userId)) {
+            userService.edit(userId, user);
+            return new ResponseEntity<>("The user has been updated.", HttpStatus.ACCEPTED);
+        }else {
+            return new ResponseEntity<>("The user does not exist.", HttpStatus.NOT_FOUND);
+        }
+
     }
 
     /**
      *update the email and the profilePhotoUrl only.
      */
-    @PutMapping(path = "/{userId}",consumes = {
+    @PutMapping(path = "editEmailPhotoUrl/{userId}",consumes = {
             MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE
             })
-    public void editUserEmailProfilePhotoUrl(@RequestBody User user, @PathVariable String userId){
+    public void editUserEmailProfilePhotoUrl(@Validated @RequestBody User user, @PathVariable String userId){
+
         userService.editUserEmailProfilePhotoUrl(user);
     }
 

@@ -103,7 +103,7 @@ public class AlbumService {
          * getSinglePhotoByAlbumId() method returns Optional<Photo>. We will fetch a photo object from it.
          * Then from that photo, we will get the PhotoId.
          */
-        commentService.deleteCommentByPhotoId(photoService.getSinglePhotoByAlbumId(albumId).get().getPhotoId());
+        commentService.deleteCommentByPhotoId(photoService.getSinglePhotoByAlbumId(albumId).getPhotoId());
         /**
          * let's delete the photo now
          */
@@ -130,4 +130,11 @@ public class AlbumService {
     }
 
 
+    public boolean checkExistenceOfCoverPhotoUrl(String coverPhotoUrl) {
+        return albumRepository.existsByCoverPhotoUrl(coverPhotoUrl);
+    }
+
+    public boolean checkExistenceOfAlbumId(String albumId) {
+        return albumRepository.existsById(albumId);
+    }
 }

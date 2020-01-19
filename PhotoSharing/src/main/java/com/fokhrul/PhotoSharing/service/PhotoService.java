@@ -28,7 +28,7 @@ public class PhotoService {
      * @param albumId
      * @return
      */
-    public Optional<Photo> getSinglePhotoByAlbumId(String albumId) {
+    public Photo getSinglePhotoByAlbumId(String albumId) {
         return photoRepository.findByAlbumId(albumId);
     }
 
@@ -36,7 +36,8 @@ public class PhotoService {
      * Get all photos
      * @return
      */
-    public List<Photo> getPhoto() {
+    public List<Photo> getPhoto()
+    {
         return photoRepository.findAll();
     }
 
@@ -68,4 +69,7 @@ public class PhotoService {
     }
 
 
+    public boolean checkExistenceByPhotoId(String photoId) {
+        return photoRepository.existsById(photoId);
+    }
 }

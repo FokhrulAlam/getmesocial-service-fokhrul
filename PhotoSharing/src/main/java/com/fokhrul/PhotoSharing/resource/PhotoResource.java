@@ -1,6 +1,8 @@
 package com.fokhrul.PhotoSharing.resource;
 
+import com.fokhrul.PhotoSharing.exception.customeExceptionHandler.InvalidAlbumIdException;
 import com.fokhrul.PhotoSharing.model.Photo;
+import com.fokhrul.PhotoSharing.service.AlbumService;
 import com.fokhrul.PhotoSharing.service.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,9 @@ import java.util.Optional;
 public class PhotoResource {
     @Autowired
     private PhotoService photoService;
+
+    @Autowired
+    private AlbumService albumService;
 
     /**
      * Get a single photo found by id
@@ -32,26 +37,36 @@ public class PhotoResource {
         return photoService.getPhoto();
     }
 
+    /**
+     * Save a photo in the repository.
+     * @param photo
+     */
     @PostMapping
     public void savePhoto(@RequestBody Photo photo){
-        photoService.save(photo);
+        //check whether the albumId exists in the AlbumRepository or not. If not, throw an exception.
+        if(albumService.checkExistenceOfAlbumId(photo.getAlbumId())){
+            photoService.save(photo);
+        }else{
+            throw new InvalidAlbumIdException();
+        }
+
     }
 
-    @PutMapping(path = "/{id}")
-    public void editPhoto(@PathVariable("id") String id, @RequestBody Photo photo){
+    @PutMapping(path = "/{photoId}")
+    public void editPhoto(@PathVariable("photoId") String id, @RequestBody Photo photo){
         photo.setPhotoId(id);
         photoService.edit(photo);
     }
 
-    @DeleteMapping(path = "/{id}")
-    public void deletePhoto(@PathVariable("id") String id){
+    @DeleteMapping(path = "deleteSinglePhotoByPhotoId/{photoId}")
+    public void deletePhoto(@PathVariable("photoId") String id){
         photoService.delete(id);
     }
 
     /**
      * Delete all photos
      */
-    @DeleteMapping("/deleteAll")
+    @DeleteMapping("/deleteAllPhotos")
     public void deleteAllPhotos(){
         photoService.deleteAllPhotos();
     }

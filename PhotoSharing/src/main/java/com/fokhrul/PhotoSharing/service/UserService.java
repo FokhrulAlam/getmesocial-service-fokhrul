@@ -1,5 +1,6 @@
 package com.fokhrul.PhotoSharing.service;
 
+import com.fokhrul.PhotoSharing.exception.GlobalExceptionHandler;
 import com.fokhrul.PhotoSharing.model.User;
 import com.fokhrul.PhotoSharing.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,8 +75,24 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void edit(User user) {
+    /**
+     * Update a single user.
+     * @param user
+     * @return
+     */
+    public void edit(String userId, User user) {
+
+//        //check the validity of the userId first.
+//        if (userRepository.existsById(userId) == true) {
+//            user.setId(userId);
+//            return userRepository.save(user);
+//        }else {
+//            return null;
+//        }
+        user.setId(userId);
         userRepository.save(user);
+
+
     }
 
     public void delete(String id) {
@@ -95,4 +112,33 @@ public class UserService {
     public void editUserEmailProfilePhotoUrl(User user) {
 
     }
+
+    /**
+     * Check whether the user exists in the collection using the userId.
+     * @param userId
+     * @return
+     */
+    public boolean checkExistenceOfUserById(String userId) {
+        return userRepository.existsById(userId);
+    }
+
+    /**
+     * Check whether the profilePhotoUrl has already been used or not.
+     * @param profilePhotoUrl is the URL of the profile photo
+     * @return a boolean value
+     */
+    public boolean checkExistenceOfProfilePhotoUrl(String profilePhotoUrl) {
+        return userRepository.existsByProfilePhotoUrl(profilePhotoUrl);
+    }
+
+    /**
+     * Check whether the email address is already used or not.
+     * @param userEmail
+     * @return
+     */
+    public boolean checkExistenceOfEmailAddress(String userEmail) {
+        return userRepository.existsByEmail(userEmail);
+    }
+
+
 }

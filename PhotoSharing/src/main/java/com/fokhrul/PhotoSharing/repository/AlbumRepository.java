@@ -10,4 +10,6 @@ public interface AlbumRepository extends MongoRepository<Album, String> {
 
     Optional<Album> findByName(String name);
 
+    boolean existsByCoverPhotoUrl(String coverPhotoUrl);
+
 }

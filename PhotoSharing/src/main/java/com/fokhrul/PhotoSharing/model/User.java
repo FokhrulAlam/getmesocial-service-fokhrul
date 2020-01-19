@@ -1,14 +1,19 @@
 package com.fokhrul.PhotoSharing.model;
 
+
+import com.fokhrul.PhotoSharing.Validator.UserModel.EmailAddress.UniqueEmailAddress;
+import com.fokhrul.PhotoSharing.Validator.UserModel.ProfilePhotoUrl.UniqueProfilePhotoUrl;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.URL;
-import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 
 /**
  * We used lombok dependency in this project. We will utilize its useful  features.
@@ -28,15 +33,17 @@ public class User {
     @Id
     private String id;      //id of the user
 
-    @NotNull(message = "User name should not be null.")
-    @Size(min = 8, max = 15, message = "User name should contain minimum 8 and maximum 15 characters")
+    @NotBlank(message = "User name can not be null and the size should be greater than zero.")
+    @Size(min = 8, max = 15, message = "The length of user name should be minimum 8 and maximum 15.")
     private String name;    //name of the user
 
-    @NotNull
+
+    @NotBlank(message = "Email can not be null and the trimmed length should be greater than zero.")
     @Email(message = "Email should be in a valid format.")
-//    @UniqueElements(message = "The email address is already used. Please use a different email address.")
+    @UniqueEmailAddress
     private String email;   //email of the user
 
     @URL(message = "URL should be in a valid format")
+    @UniqueProfilePhotoUrl
     private String profilePhotoUrl;     //url of the profile photo
 }
