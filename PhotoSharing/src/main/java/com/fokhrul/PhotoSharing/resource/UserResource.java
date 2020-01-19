@@ -101,7 +101,7 @@ public class UserResource {
             MediaType.APPLICATION_XML_VALUE,
             MediaType.APPLICATION_JSON_VALUE
             })
-    public ResponseEntity<String> editUser(@RequestParam("userId") String userId, @RequestBody User user){
+    public ResponseEntity<String> editUser(@RequestParam("userId") String userId, @Validated @RequestBody User user){
 
         if (userService.checkExistenceOfUserById(userId)) {
             userService.edit(userId, user);

@@ -5,6 +5,7 @@ import com.fokhrul.PhotoSharing.model.Comment;
 import com.fokhrul.PhotoSharing.service.CommentService;
 import com.fokhrul.PhotoSharing.service.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public class CommentResource {
      * @param comment
      */
     @PostMapping("/saveSingleComment")
-    public void saveComment(@RequestBody Comment comment){
+    public void saveComment(@Validated @RequestBody Comment comment){
         if (photoService.checkExistenceByPhotoId(comment.getPhotoId())) {
             commentService.saveComment(comment);
         }else{
@@ -51,7 +52,7 @@ public class CommentResource {
     }
 
     @PutMapping(path = "/{id}")
-    public void editComment(@PathVariable("id") String id, @RequestBody Comment comment){
+    public void editComment(@PathVariable("id") String id, @Validated @RequestBody Comment comment){
         comment.setId(id);
         commentService.editComment(comment);
     }

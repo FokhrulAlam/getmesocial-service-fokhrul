@@ -5,6 +5,7 @@ import com.fokhrul.PhotoSharing.model.Photo;
 import com.fokhrul.PhotoSharing.service.AlbumService;
 import com.fokhrul.PhotoSharing.service.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public class PhotoResource {
      * @param photo
      */
     @PostMapping
-    public void savePhoto(@RequestBody Photo photo){
+    public void savePhoto(@Validated @RequestBody Photo photo){
         //check whether the albumId exists in the AlbumRepository or not. If not, throw an exception.
         if(albumService.checkExistenceOfAlbumId(photo.getAlbumId())){
             photoService.save(photo);
@@ -53,7 +54,7 @@ public class PhotoResource {
     }
 
     @PutMapping(path = "/{photoId}")
-    public void editPhoto(@PathVariable("photoId") String id, @RequestBody Photo photo){
+    public void editPhoto(@PathVariable("photoId") String id, @Validated @RequestBody Photo photo){
         photo.setPhotoId(id);
         photoService.edit(photo);
     }

@@ -51,7 +51,7 @@ public class AlbumResource {
      * @param album
      */
     @PutMapping(path = "/{albumId}")
-    public void editAlbum(@PathVariable("albumId") String albumId, @RequestBody Album album){
+    public void editAlbum(@PathVariable("albumId") String albumId, @Validated @RequestBody Album album){
         album.setId(albumId);
         albumService.edit(album);
     }
