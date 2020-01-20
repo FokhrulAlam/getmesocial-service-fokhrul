@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -23,10 +24,10 @@ public class Album {
 
     @NotBlank(message = "Album name can not be blank.")
     @Size(min = 4, max = 10, message = "Album name should contains minimum 4 characters and maximum 10 characters.")
-    private String name;    //name of the album
+    private String albumName;    //name of the album
 
     @UniqueCoverPhotoUrl
-    private String coverPhotoUrl;   //url of the cover photo of the album
+    private String albumCoverPhotoUrl;   //url of the cover photo of the album
 
     private String createdBy;       //user who created the album
 

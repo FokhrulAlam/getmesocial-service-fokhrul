@@ -39,7 +39,7 @@ public class AlbumService {
      * Get a single album by album name.
      */
     public Optional<Album> getSingleAlbumByName(String albumName) {
-        return albumRepository.findByName(albumName);
+        return albumRepository.findByAlbumName(albumName);
     }
 
     /**
@@ -131,7 +131,7 @@ public class AlbumService {
 
 
     public boolean checkExistenceOfCoverPhotoUrl(String coverPhotoUrl) {
-        return albumRepository.existsByCoverPhotoUrl(coverPhotoUrl);
+        return albumRepository.existsByAlbumCoverPhotoUrl(coverPhotoUrl);
     }
 
     public boolean checkExistenceOfAlbumId(String albumId) {

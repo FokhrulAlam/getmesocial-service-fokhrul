@@ -2,22 +2,21 @@ package com.fokhrul.PhotoSharing.exception;
 
 import com.fokhrul.PhotoSharing.exception.customeExceptionHandler.InvalidAlbumIdException;
 import com.fokhrul.PhotoSharing.exception.customeExceptionHandler.InvalidPhotoIdException;
-import com.fokhrul.PhotoSharing.exception.customeExceptionHandler.ResourceNotFoundException;
-import org.springframework.boot.context.properties.bind.validation.ValidationErrors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
-import java.lang.annotation.Annotation;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * A class annotated with @ControllerAdvice, will by default apply to all classes
@@ -25,7 +24,7 @@ import java.time.LocalTime;
  * The code in this class is global to all other classes.
  */
 
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler  {
 
     /**
@@ -46,7 +45,7 @@ public class GlobalExceptionHandler  {
                                                                    WebRequest webRequest)
     {
         ApiErrorMessage apiErrorMessage = new ApiErrorMessage(HttpStatus.NOT_FOUND, LocalDateTime.now(),
-                                            exception.toString());
+                                            "This is a null pointer exception");
         return new ResponseEntity<>(apiErrorMessage, HttpStatus.NOT_FOUND);
     }
 
@@ -58,13 +57,20 @@ public class GlobalExceptionHandler  {
      */
     @ExceptionHandler(value = {HttpMediaTypeNotSupportedException.class})
     public ResponseEntity<Object> handleNotAcceptableExceptions(HttpMediaTypeNotSupportedException exception,
-                                                            WebRequest webRequest)
+                                                                WebRequest webRequest)
     {
         ApiErrorMessage apiErrorMessage = new ApiErrorMessage(HttpStatus.NOT_ACCEPTABLE, LocalDateTime.now(),
                             "Please check the Response Content Type");
         return new ResponseEntity<>(apiErrorMessage, HttpStatus.NOT_ACCEPTABLE);
     }
 
+
+    /**
+     * We will handle our custom exception "InvalidAlbumIdException"
+     * @param exception
+     * @param webRequest
+     * @return
+     */
     @ExceptionHandler(InvalidAlbumIdException.class)
     public ResponseEntity<Object> handleInvalidAlbumExceptions(InvalidAlbumIdException exception,
                                                                WebRequest webRequest)
@@ -74,6 +80,13 @@ public class GlobalExceptionHandler  {
         return new ResponseEntity<>(apiErrorMessage, HttpStatus.NOT_FOUND);
     }
 
+
+    /**
+     * We will handle our custom exception "InvalidPhotoIdException"
+     * @param exception
+     * @param webRequest
+     * @return
+     */
     @ExceptionHandler(InvalidPhotoIdException.class)
     public ResponseEntity<Object> handleInvalidPhotoExceptions(InvalidPhotoIdException exception,
                                                                WebRequest webRequest)
@@ -83,13 +96,49 @@ public class GlobalExceptionHandler  {
         return new ResponseEntity<>(apiErrorMessage, HttpStatus.NOT_FOUND);
     }
 
+
+    /**
+     * Here we will handle the exceptions invoked by disobeying the validation rules of fields of model classes.
+     * @param exception
+     * @param webRequest
+     * @return
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleMethodArgumentNotValidExceptions(
             MethodArgumentNotValidException exception, WebRequest webRequest)
     {
+        Map<String, String> fieldMessage = new TreeMap<>();
+        for (FieldError fieldError : exception.getBindingResult().getFieldErrors()){
+            fieldMessage.put(fieldError.getField() , fieldError.getDefaultMessage());
+        }
         ApiErrorMessage apiErrorMessage = new ApiErrorMessage(HttpStatus.BAD_REQUEST, LocalDateTime.now(),
-                "Model fields did not follow their validation rules.");
+                "Model fields did not follow their validation rules.",
+                fieldMessage);
         return new ResponseEntity<>(apiErrorMessage, HttpStatus.BAD_REQUEST);
     }
+
+    /**
+     * ConnectException occurs while trying to reach a URL which does not exist.
+     * @param exception
+     * @param webRequest
+     * @return
+     */
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException exception,
+                                                                WebRequest webRequest)
+    {
+        ApiErrorMessage apiErrorMessage = new ApiErrorMessage(HttpStatus.NOT_FOUND, LocalDateTime.now(),
+                "No such URL found. Please check the URL.");
+        return new ResponseEntity<>(apiErrorMessage, HttpStatus.NOT_FOUND);
+    }
+
+//    @ExceptionHandler(ValidationException.class)
+//
+//    public ResponseEntity<Object> handleValidationException(ValidationException exception, WebRequest webRequest)
+//    {
+//        ApiErrorMessage apiErrorMessage = new ApiErrorMessage(HttpStatus.BAD_REQUEST, LocalDateTime.now(),
+//                "Model fields did not follow validation rules", exception.getMessage());
+//        return new ResponseEntity<>(apiErrorMessage, HttpStatus.BAD_REQUEST);
+//    }
 
 }

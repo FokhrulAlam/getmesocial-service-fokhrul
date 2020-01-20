@@ -8,8 +8,8 @@ import java.util.Optional;
 
 public interface AlbumRepository extends MongoRepository<Album, String> {
 
-    Optional<Album> findByName(String name);
+    Optional<Album> findByAlbumName(String name);
 
-    boolean existsByCoverPhotoUrl(String coverPhotoUrl);
+    boolean existsByAlbumCoverPhotoUrl(String coverPhotoUrl);
 
 }
