@@ -123,14 +123,14 @@ public class GlobalExceptionHandler  {
      * @param webRequest
      * @return
      */
-    @ExceptionHandler(NoHandlerFoundException.class)
-    public ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException exception,
-                                                                WebRequest webRequest)
-    {
-        ApiErrorMessage apiErrorMessage = new ApiErrorMessage(HttpStatus.NOT_FOUND, LocalDateTime.now(),
-                "No such URL found. Please check the URL.");
-        return new ResponseEntity<>(apiErrorMessage, HttpStatus.NOT_FOUND);
-    }
+//    @ExceptionHandler(NoHandlerFoundException.class)
+//    public ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException exception,
+//                                                                WebRequest webRequest)
+//    {
+//        ApiErrorMessage apiErrorMessage = new ApiErrorMessage(HttpStatus.NOT_FOUND, LocalDateTime.now(),
+//                "No such URL found. Please check the URL.");
+//        return new ResponseEntity<>(apiErrorMessage, HttpStatus.NOT_FOUND);
+//    }
 
 //    @ExceptionHandler(ValidationException.class)
 //

@@ -4,6 +4,7 @@ import com.fokhrul.PhotoSharing.Validator.AlbumModel.CoverPhotoUrl.UniqueCoverPh
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -27,6 +28,7 @@ public class Album {
     private String albumName;    //name of the album
 
     @UniqueCoverPhotoUrl
+    @URL
     private String albumCoverPhotoUrl;   //url of the cover photo of the album
 
     private String createdBy;       //user who created the album
